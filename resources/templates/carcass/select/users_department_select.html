@@ -1,0 +1,5 @@
+<select class="form-select mb-3" name="department" id="department">
+    {% for department in departments %}
+    <option value="{{department.id}}" data-id="{{department.id}}">{{department.name}}</option>
+    {% endfor %}
+</select>

@@ -1,0 +1,384 @@
+<div class="container_full-size">
+    <div class="col-12 col-lg-12 col-xxl-12 d-flex">
+        <div class="card flex-fill">
+            <div class="card-header">
+                <h5 class="text-center card-title mb-0">Сводная таблица объектов</h5>
+                <a class="newProject">Новый Объект</a>
+            </div>
+
+            <table class="table table-hover my-0 table-corrections">
+                <thead>
+                <tr>
+                    <th id="th1"  class="td-position td-position_num">№</th>
+                    <th id="th2"  class="d-none d-sm-table-cell td-position">Объект</th>
+                    <th id="th3"  class="d-none d-sm-table-cell td-position">ГИП</th>
+                    <th id="th4"  class="td-position d-xl-table-cell">ГАП</th>
+                    <th id="th5"  class="d-none d-xl-table-cell td-position">ОВ</th>
+                    <th id="th6"  class="d-none d-xl-table-cell td-position">КР</th>
+                    <th id="th7"  class="d-none d-xl-table-cell td-position">ВК</th>
+                    <th id="th8"  class="d-none d-xl-table-cell td-position">Генплан</th>
+                    <th id="th9"  class="d-none d-xl-table-cell td-position td-last_child-border">Отв.Эксперт</th>
+                    <th class="d-md-table-cell th-position" colspan="2">Проект</th>
+                    <th class="d-md-table-cell th-position" colspan="2">Экспертиза</th>
+                    <th class="d-md-table-cell th-position" colspan="2">Рабочка</th>
+                </tr>
+                <tr>
+                    <th class="colum_end-start-border">Начало</th>
+                    <th class="colum_end-start-border">Конец</th>
+                    <th class="colum_end-start-border">Начало</th>
+                    <th class="colum_end-start-border">Конец</th>
+                    <th class="colum_end-start-border">Начало</th>
+                    <th class="colum_end-start-border">Конец</th>
+                </tr>
+                </thead>
+<!--                <tbody>-->
+<!--                {% set count = 1 %}-->
+<!--                {% for project in projects %}-->
+<!--                    <tr>-->
+
+<!--                        <td class="column-pp">{{count}}</td>-->
+
+<!--                        <td class="d-none d-sm-table-cell">-->
+<!--                            <a class="editProject" data-id="{{project.object_id}}">{{project.object_name}}</a>-->
+<!--                        </td>-->
+
+<!--                        {% if project.gip_name is not empty %}-->
+<!--                        <td class="d-none d-sm-table-cell">{{project.gip_name}}</td>-->
+<!--                        {% else %}-->
+<!--                        <td class="d-none d-sm-table-cell"><span class="text-danger">Не назначен</span></td>-->
+<!--                        {% endif %}-->
+
+<!--                        {% if project.gap_name is not empty %}-->
+<!--                        <td class="d-none d-sm-table-cell">{{project.gap_name}}</td>-->
+<!--                        {% else %}-->
+<!--                        <td class="d-none d-sm-table-cell"><span class="text-danger">Не назначен</span></td>-->
+<!--                        {% endif %}-->
+
+<!--                        {% if project.ov_name is not empty %}-->
+<!--                        <td class="d-none d-sm-table-cell">{{project.ov_name}}</td>-->
+<!--                        {% else %}-->
+<!--                        <td class="d-none d-sm-table-cell"><span class="text-danger">Не назначен</span></td>-->
+<!--                        {% endif %}-->
+
+<!--                        {% if project.kr_name is not empty %}-->
+<!--                        <td class="d-none d-sm-table-cell">{{project.kr_name}}</td>-->
+<!--                        {% else %}-->
+<!--                        <td class="d-none d-sm-table-cell"><span class="text-danger">Не назначен</span></td>-->
+<!--                        {% endif %}-->
+
+<!--                        {% if project.vk_name is not empty %}-->
+<!--                        <td class="d-none d-sm-table-cell">{{project.vk_name}}</td>-->
+<!--                        {% else %}-->
+<!--                        <td class="d-none d-sm-table-cell"><span class="text-danger">Не назначен</span></td>-->
+<!--                        {% endif %}-->
+
+<!--                        {% if project.genplan_name is not empty %}-->
+<!--                        <td class="d-none d-sm-table-cell">{{project.genplan_name}}</td>-->
+<!--                        {% else %}-->
+<!--                        <td class="d-none d-sm-table-cell"><span class="text-danger">Не назначен</span></td>-->
+<!--                        {% endif %}-->
+
+<!--                        {% if project.expert_name is not empty %}-->
+<!--                        <td class="d-none d-sm-table-cell">{{project.expert_name}}</td>-->
+<!--                        {% else %}-->
+<!--                        <td class="d-none d-sm-table-cell"><span class="text-danger">Не назначен</span></td>-->
+<!--                        {% endif %}-->
+
+<!--                        {% if project.project_date_start is not empty %}-->
+<!--                        <td class="d-none d-md-table-cell">{{project.project_date_start | date("d-m-Y") }}</td>-->
+<!--                        {% else %}-->
+<!--                        <td class="d-none d-md-table-cell">{{project.project_date_start}}</td>-->
+<!--                        {% endif %}-->
+
+<!--                        {% if project.project_date_end is not empty %}-->
+<!--                        <td class="d-none d-md-table-cell">{{project.project_date_end | date("d-m-Y") }}</td>-->
+<!--                        {% else %}-->
+<!--                        <td class="d-none d-md-table-cell">{{project.project_date_end}}</td>-->
+<!--                        {% endif %}-->
+
+<!--                        {% if project.exp_date_start is not empty %}-->
+<!--                        <td class="d-none d-md-table-cell">{{project.exp_date_start | date("d-m-Y") }}</td>-->
+<!--                        {% else %}-->
+<!--                        <td class="d-none d-md-table-cell">{{project.exp_date_start}}</td>-->
+<!--                        {% endif %}-->
+
+<!--                        {% if project.exp_date_end is not empty %}-->
+<!--                        <td class="d-none d-md-table-cell">{{project.exp_date_end | date("d-m-Y") }}</td>-->
+<!--                        {% else %}-->
+<!--                        <td class="d-none d-md-table-cell">{{project.exp_date_end}}</td>-->
+<!--                        {% endif %}-->
+
+<!--                        {% if project.work_date_start is not empty %}-->
+<!--                        <td class="d-none d-md-table-cell">{{project.work_date_start | date("d-m-Y") }}</td>-->
+<!--                        {% else %}-->
+<!--                        <td class="d-none d-md-table-cell">{{project.work_date_start}}</td>-->
+<!--                        {% endif %}-->
+
+<!--                        {% if project.work_date_end is not empty %}-->
+<!--                        <td class="d-none d-md-table-cell">{{project.work_date_end | date("d-m-Y") }}</td>-->
+<!--                        {% else %}-->
+<!--                        <td class="d-none d-md-table-cell">{{project.work_date_end}}</td>-->
+<!--                        {% endif %}-->
+
+<!--                    </tr>-->
+<!--                {% set count = count + 1 %}-->
+<!--                {% endfor %}-->
+
+<!--                </tbody>-->
+<!--            </table>-->
+            <table>
+                <thead>
+                <tr>
+                    <th  class="td-position td-position_num">№</th>
+                    <th  class="d-none d-sm-table-cell td-position">Описание</th>
+                    <th  class="d-none d-sm-table-cell td-position">Пользователь</th>
+                    <th  class="td-position d-xl-table-cell">Чат ID</th>
+                    <th  class="d-none d-xl-table-cell td-position">Дата заявки</th>
+                    <th  class="d-none d-xl-table-cell td-position">Статус</th>
+                    <th  class="d-none d-xl-table-cell td-position">Приоритет</th>
+                    <th  class="d-none d-xl-table-cell td-position">Срок выполнения</th>
+                    <th  class="d-none d-xl-table-cell td-position td-last_child-border">Архив</th>
+                    <th class="d-md-table-cell th-position">Сотрудник</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% set count1 = 1 %}
+                {% for project in projects %}
+                <tr>
+
+                    <td class="column-pp">{{count1}}</td>
+
+                    <td class="d-none d-sm-table-cell">
+                        <a class="editProject" data-id="{{project.object_id}}">{{project.request_description}}</a>
+                    </td>
+
+                    {% if project.user_name is not empty %}
+                    <td class="d-none d-sm-table-cell">{{project.user_name}}</td>
+                    {% else %}
+                    <td class="d-none d-sm-table-cell"><span class="text-danger">Не назначен</span></td>
+                    {% endif %}
+
+                    {% if project.chat_id is not empty %}
+                    <td class="d-none d-sm-table-cell">{{project.chat_id}}</td>
+                    {% else %}
+                    <td class="d-none d-sm-table-cell"><span class="text-danger">Не назначен</span></td>
+                    {% endif %}
+
+                    {% if project.date_create is not empty %}
+                    <td class="d-none d-md-table-cell">{{project.date_create | date("d-m-Y") }}</td>
+                    {% else %}
+                    <td class="d-none d-md-table-cell">{{project.date_create}}</td>
+                    {% endif %}
+
+                    {% if project.status_name is not empty %}
+                    <td class="d-none d-sm-table-cell">{{project.status_name}}</td>
+                    {% else %}
+                    <td class="d-none d-sm-table-cell"><span class="text-danger">Не назначен</span></td>
+                    {% endif %}
+
+                    {% if project.priority_name is not empty %}
+                    <td class="d-none d-sm-table-cell">{{project.priority_name}}</td>
+                    {% else %}
+                    <td class="d-none d-sm-table-cell"><span class="text-danger">Не назначен</span></td>
+                    {% endif %}
+
+                    {% if project.date_expired is not empty %}
+                    <td class="d-none d-sm-table-cell">{{project.date_expired | date("d-m-Y") }}</td>
+                    {% else %}
+                    <td class="d-none d-sm-table-cell"><span class="text-danger">Не назначен</span></td>
+                    {% endif %}
+
+                    {% if project.arhive is not empty %}
+                    <td class="d-none d-sm-table-cell">{{project.arhive}}</td>
+                    {% else %}
+                    <td class="d-none d-sm-table-cell"><span class="text-danger">Не назначен</span></td>
+                    {% endif %}
+
+                    {% if project.worker_id is not empty %}
+                    <td class="d-none d-sm-table-cell">{{project.worker_id}}</td>
+                    {% else %}
+                    <td class="d-none d-sm-table-cell"><span class="text-danger">Не назначен</span></td>
+                    {% endif %}
+
+                </tr>
+                {% set count1 = count1 + 1 %}
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="card flex-fill">
+    <div id="objectModal" class="modal">
+        <div class="modal-content modal-object-edit">
+            <br>
+            <h5>Данные об объекте</h5>
+            <div id="modal-update-ajax-load">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card flex-fill">
+    <div id="createObject" class="modal">
+        <div class="modal-content modal-object">
+            <span id="error" class="error"></span>
+            <br>
+            <h5>Новый объект</h5>
+            <form id="createObjectForm">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label for="object_name">Наименование Объекта</label>
+                        <input type="text" class="form-control mb-3 depName field" value="" name="object_name" id="object_name">
+                    </div>
+                    <div class="col-lg-6">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!--    БЛОК С СОТРУДНИКАМИ-->
+                    <div class="col-lg-6">
+
+                        <label for="gipSelect">ГИП</label>
+                        <select class="form-select mb-3" name="gipSelect" id="gipSelect">
+                            <option></option>
+                            {% for gip in performers.gips %}
+                            <option value="{{gip.gip_id}}" data-id="{{gip.gip_id}}">{{gip.gip_name}}</option>
+                            {% endfor %}
+                        </select>
+
+                        <label for="gapSelect">ГАП</label>
+                        <select class="form-select mb-3" name="gapSelect" id="gapSelect">
+                            <option></option>
+                            {% for gap in performers.gaps %}
+                            <option value="{{gap.gap_id}}" data-id="{{gap.gap_id}}">{{gap.gap_name}}</option>
+                            {% endfor %}
+                        </select>
+
+                        <label for="ovSelect">ОВ</label>
+                        <select class="form-select mb-3" name="ovSelect" id="ovSelect">
+                            <option></option>
+                            {% for ov in performers.ov %}
+                            <option value="{{ov.ov_id}}" data-id="{{ov.ov_id}}">{{ov.ov_name}}</option>
+                            {% endfor %}
+                        </select>
+
+                        <label for="krSelect">КР</label>
+                        <select class="form-select mb-3" name="krSelect" id="krSelect">
+                            <option></option>
+                            {% for kr in performers.kr %}
+                            <option value="{{kr.kr_id}}" data-id="{{kr.kr_id}}">{{kr.kr_name}}</option>
+                            {% endfor %}
+                        </select>
+
+                        <label for="vkSelect">ВК</label>
+                        <select class="form-select mb-3" name="vkSelect" id="vkSelect">
+                            <option></option>
+                            {% for vk in performers.vk %}
+                            <option value="{{vk.vk_id}}" data-id="{{vk.vk_id}}">{{vk.vk_name}}</option>
+                            {% endfor %}
+                        </select>
+
+                        <label for="genplanSelect">Генплан</label>
+                        <select class="form-select mb-3" name="genplanSelect" id="genplanSelect">
+                            <option></option>
+                            {% for genplan in performers.genplans %}
+                            <option value="{{genplan.genplan_id}}" data-id="{{genplan.genplan_id}}">{{genplan.genplan_name}}</option>
+                            {% endfor %}
+                        </select>
+
+                        <label for="expertSelect">Отв. Эксперт</label>
+                        <select class="form-select mb-3" name="expertSelect" id="expertSelect">
+                            <option></option>
+                            {% for expert in performers.experts %}
+                            <option value="{{expert.expert_id}}" data-id="{{expert.expert_id}}">{{expert.expert_name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <!--    БЛОК С ДАТАМИ-->
+                    <div class="col-lg-6">
+                        <label>Стадия проект</label>
+                        <br>
+                        <label for="datePStart">Начало</label>
+                        <br>
+                        <input type="date" id="datePStart" class="datePStart" name="datePStart" value="">
+                        <br>
+                        <label for="datePEnd">Конец</label>
+                        <br>
+                        <input type="date" id="datePEnd" class="datePEnd" name="datePEnd" value="" disabled>
+
+                        <br>
+                        <br>
+
+                        <label>Стадия Экспертизы</label>
+                        <br>
+                        <label for="dateEStart">Начало</label>
+                        <br>
+                        <input type="date" id="dateEStart" class="dateEStart" name="dateEStart" value="">
+                        <br>
+                        <label for="dateEEnd">Конец</label>
+                        <br>
+                        <input type="date" id="dateEEnd" class="dateEEnd" name="dateEEnd" value="" disabled>
+
+                        <br>
+                        <br>
+
+                        <label>Стадия Рабочки</label>
+                        <br>
+                        <label for="dateWStart">Начало</label>
+                        <br>
+                        <input type="date" id="dateWStart" class="dateWStart" name="dateWStart" value="">
+                        <br>
+                        <label for="dateWEnd">Конец</label>
+                        <br>
+                        <input type="date" id="dateWEnd" class="dateWEnd" name="dateWEnd" value="" disabled>
+                    </div>
+                </div>
+
+            </form>
+            <div class="modal-text-right">
+                <a class="icon-hover-red icon-font-size-25px icon-margin-right-1rem createProject" id="createProject"><i class="fa-solid fa-circle-check"></i></a>
+                <a class="icon-hover-red icon-font-size-25px icon-margin-right-1rem" id="closeBtnCreateModal"><i class="fa-solid fa-xmark"></i></a>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+        removeRowspanItem(e);
+        e.addListener(removeRowspanItem);
+
+        $(document).ready(function () {
+
+            $(".newProject").bind("click", function (){
+
+                let modal = document.getElementById('createObject');
+                let btnClose = document.getElementById("closeBtnCreateModal");
+
+                modal.style.display = "block";
+
+                btnClose.onclick = function () {
+                    modal.style.display = "none";
+                }
+
+            });
+
+            $(".editProject").bind("click", function (){
+
+                let modal = document.getElementById('objectModal');
+                let target = "#modal-update-ajax-load";
+                let object_id = $(this).attr("data-id");
+
+                getObjectToEdit(object_id, target);
+
+                modal.style.display = "block";
+
+            });
+            createDate();
+            createNewProject();
+
+        });
+</script>

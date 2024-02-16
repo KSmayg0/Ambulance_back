@@ -1,0 +1,111 @@
+<form id="updateObject">
+  <div class="row">
+    <div class="col-lg-6">
+      <label for="description">Описание заявки</label>
+      <p type="text" class="form-control mb-3 depName field" id="description">{{request[0].request_description}}</p>    </div>
+    <div class="col-lg-6">
+    </div>
+  </div>
+  <div class="row">
+    <!--    БЛОК С СОТРУДНИКАМИ-->
+    <div class="col-lg-3">
+      <!-- Новое -->
+      <label for="statusSelect">Статус</label>
+      <select class="form-select mb-3 field" disabled name="status_id" id="statusSelect">
+        {% for status in select_status %}
+        <option value="{{status.status_id}}" data-id="{{status.status_name}}">{{status.status_name}}</option>
+        {% endfor %}
+      </select>
+
+      <label for="prioritySelect">Приоритет</label>
+      <select class="form-select mb-3 field" disabled name="priority_id" id="prioritySelect">
+        {% for priority in select_priotiry %}
+        <option value="{{priority.priority_id}}" data-id="{{priority.priority_name}}">{{priority.priority_name}}</option>
+        {% endfor %}
+      </select>
+        <label for="user_name">Пользователь</label>
+        <p type="text" class="form-control mb-3 depName field" id="user_name">{{request[0].name}}</p>
+        <p type="text" class="form-control mb-3 depName field" id="user_surname">{{request[0].surname}}</p>
+<!--        Кнопка для помещения заявки в архив-->
+        <a class="icon-hover-red moveRequestToArchive"><i class="fa-solid fa-arrow-right-long"></i>Убрать заявку в архив</a>
+
+    </div>
+    <!--    БЛОК С ДАТАМИ-->
+    <div class="col-lg-3">
+      <label>Стадия приема</label>
+      <br>
+      <label for="datePStartUpdate">Пришла</label>
+      <br>
+      <!--      Атрибут для установки даты и времени исполнения datetime-local-->
+      {% if request[0].date_create is not empty  %}
+      <input type="date" id="datePStartUpdate" class="datePStartUpdate" name="datePStart" disabled value="{{request[0].date_create | date('Y-m-d')}}">
+      {% else %}
+      <input type="date" id="datePStartUpdate" class="datePStartUpdate" name="datePStart" disabled value="">
+      {% endif %}
+      <br>
+      <label for="datePEndUpdate">До</label>
+      <br>
+      {% if request[0].date_expired is not empty  %}
+      <input type="date" id="datePEndUpdate" class="datePEndUpdate" name="date_expired" disabled value="{{request[0].date_expired | date('Y-m-d')}}">
+      {% else %}
+      <input type="date" id="datePEndUpdate" class="datePEndUpdate" name="date_expired" disabled value="">
+      {% endif %}
+
+
+      <br>
+    </div>
+    <!--    БЛОК С ИСПОЛНИТЕЛЯМИ-->
+    <div class="col-lg-3">
+      <label for="workerSelect">Исполнитель</label>
+      <select class="form-select mb-3 field" name="worker_id" disabled id="workerSelect">
+        {% for worker in select_workers %}
+        <option value="{{worker.user_id}}" data-id="{{worker.user_id}}">{{worker.user_surname}} {{worker.user_name}}</option>
+        {% endfor %}
+      </select>
+      {% if isAdmin %}
+      <br>
+      <br>
+      <br>
+      <br>
+      <!--      Не защищенный метод получения excel, так как его может получить любой пользователь по URL-->
+      <a class="btn btn-sm btn-primary loadExcelModal" id="loadExcelModal" href="/requests/createExcel">Скачать файл excel</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Заполнение дефолтными значениями полей ввода для временного сохранения -->
+  <input type="hidden" name="id" id="request_id" value="{{request[0].request_id}}">
+  <input type="hidden" id="status_id" value="{{request[0].status_id}}">
+  <input type="hidden" id="priority_id" value="{{request[0].priority_id}}">
+  {% if request[0].worker_id is not empty %}
+  <input type="hidden" id="worker_id" value="{{request[0].worker_id}}">
+  {% else %}
+  <input type="hidden" id="worker_id" value="">
+  {% endif %}
+
+
+</form>
+<div class="modal-text-right">
+  <a class="icon-hover-red icon-font-size-25px icon-margin-right-1rem" id="closeBtn"><i class="fa-solid fa-xmark"></i></a>
+</div>
+
+<script>
+
+  $(document).ready(function () {
+
+    // Установка действительный значений из базы данных в поле сетектора
+    $("#statusSelect").val(document.getElementById('status_id').value);
+    $("#prioritySelect").val(document.getElementById('priority_id').value);
+    $("#workerSelect").val(document.getElementById('worker_id').value);
+
+    let modalOnLoad = document.getElementById('requestModal');
+    let btnClose = document.getElementById("closeBtn");
+
+    btnClose.onclick = function () {
+      modalOnLoad.style.display = "none";
+    }
+
+    moveObjectToWork();
+  });
+
+</script>

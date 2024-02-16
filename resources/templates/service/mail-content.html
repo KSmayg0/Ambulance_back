@@ -1,0 +1,58 @@
+<table class="table table-hover my-0">
+  <thead>
+  <tr>
+    <th class="td-position_num position-colum-item">№ письма.</th>
+    <th class="position-colum-item">Дата</th>
+    <th class="d-xl-table-cell position-text-line ">Описание</th>
+    <th class="position-colum-item position-text-line">Фамилия</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% for mail in mails %}
+  <tr>
+    <td class="column-pp">
+      {% if user_role_id == 1 %}
+      <a class="editMail" data-year_id="{{year_id}}" data-mail_entity_id="{{mail_entity_id}}" data-id="{{mail.id}}">{{mail.number_id}}</a>
+      {% else %}
+      {{mail.number_id}}
+      {% endif %}
+    </td>
+    <td class="data-width">{{ mail.date|date("d-m-Y") }}</td>
+    <td class="position-text-line">
+      {{mail.description}}
+      {% if mail.annul == 1 %}
+      - <span class="text-danger">Аннулировано</span>
+      {% endif %}
+    </td>
+    <td class="position-text-line">{{mail.lastname}}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<div id="mailEditModal" class="modal">
+  <div class="modal-content">
+    <div id="editMailContent">
+
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+
+    $(".editMail").bind("click", function () {
+
+      let modal = document.getElementById('mailEditModal');
+      let dataToSend = {};
+      dataToSend['mail_id'] = $(this).attr("data-id");
+      dataToSend['mail_entity_id'] = $(this).attr("data-mail_entity_id");
+      dataToSend['year_id'] = $(this).attr("data-year_id");
+
+      ajaxPostAsyncFalse('/services/mail/getMailById',"#editMailContent",dataToSend);
+
+      modal.style.display = "block";
+
+    });
+  });
+</script>

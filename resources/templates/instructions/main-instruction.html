@@ -1,0 +1,18 @@
+<div class="btn-group-options">
+    <button
+            class="btn btn-primary btn-lg ajaxInstructionsLoad"
+            data-target="#ajaxInstructions"
+            data-url="/instructions-details">Инструкции</button>
+    <button
+            class="btn btn-primary btn-lg ajaxInstructionsLoad"
+            data-target="#ajaxInstructions"
+            data-url="/phones-list">Список сотрудников и телефонов</button>
+</div>
+
+<div id="ajaxInstructions"></div>
+
+<script>
+    $(document).ready(function () {
+        instructionsBtns();
+    });
+</script>

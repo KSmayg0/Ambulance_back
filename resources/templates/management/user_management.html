@@ -1,0 +1,136 @@
+<div class="col-12 col-lg-12 col-xxl-12 d-flex">
+    <div class="card flex-fill">
+        <div class="card-header">
+
+            <h5 class="card-title mb-0">Пользователи</h5>
+            <br>
+            <a class="icon-hover-red icon-font-size-25px" id="createUserModal"><i
+                    class="fa-solid fa-circle-plus"></i></a>
+        </div>
+        <table class="table table-hover my-0 padding-5-5">
+            <thead>
+            <tr>
+                <th class="col-1">№</th>
+                <th class="col-1 th-employee">Логин</th>
+                <th class="col-1 th-employee">Пароль</th>
+                <th class="col-1 th-employee">Имя</th>
+                <th class="col-1 th-employee">Фамилия</th>
+                <th class="col-1 th-employee">Телефон</th>
+                <th class="col-1 th-employee">Этаж</th>
+                <th class="col-1 th-employee">Блок</th>
+                <th class="col-1 th-employee">Отдел</th>
+                <th class="col-1 th-employee">Активность</th>
+                <th class="col-1 th-employee"></th>
+                <th class="col-1 th-employee"></th>
+                <th class="col-1 th-employee"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% set count = 1 %}
+            {% for user in users %}
+            <tr>
+                <td class="colum-left">{{count}}</td>
+                <td class="colum-center">{{user.login}}</td>
+                <td class="colum-center">{{user.password}}</td>
+                <td class="colum-center">{{user.name}}</td>
+                <td class="colum-center">{{user.lastname}}</td>
+                <td class="colum-center">{{user.phone}}</td>
+                <td class="colum-center">{{user.floorName}}</td>
+                <td class="colum-center">{{user.roomName}}</td>
+                <td class="colum-center">{{user.depName}}</td>
+                <td class="colum-center"><span id="userActive">{{user.active}}</span></td>
+                <td class="colum-center"><a data-id={{user.id}} class="icon-hover-red updateUser" id="updateUser"><i
+                        class="fa-solid fa-pen"></i></a></td>
+                <td class="colum-center"><a data-id={{user.id}} class="icon-hover-red deleteUser"><i
+                        class="fa-solid fa-trash"></i></a></td>
+                <td class="colum-center">
+                    <div id="delete-alert"></div>
+                </td>
+            </tr>
+            {% set count = count + 1 %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="card flex-fill">
+    <div id="newUserModal" class="modal">
+        <div class="modal-content modal-user">
+            <span class="error"></span>
+            <br>
+            <h5>Новый пользователь</h5>
+            <form id="createNewUserForm">
+                <label for="login">Логин</label>
+                <input type="text" class="form-control mb-3 depName field" name="login" id="login">
+                <label for="password">Пароль</label>
+                <input type="text" class="form-control mb-3 depName field" name="password" id="password">
+                <label for="name">Имя</label>
+                <input type="text" class="form-control mb-3 depName field" name="name" id="name">
+                <label for="lastname">Фамилия</label>
+                <input type="text" class="form-control mb-3 depName field" name="lastname" id="lastname">
+                <label for="phone">Телефон</label>
+                <input type="text" class="form-control mb-3 depName field" name="phone" id="phone">
+                <label for="floor">Этаж</label>
+                <select class="form-select mb-3 field" name="floor" id="floor">
+                    <option></option>
+                    {% for floor in floors %}
+                    <option value="{{floor.id}}" data-id="{{floor.id}}">{{floor.name}}</option>
+                    {% endfor %}
+                </select>
+                <label for="room">Блок</label>
+                <div id="room-data-load">
+                    <select class="form-select mb-3 field" name="room" id="room">
+                        <option></option>
+                    </select>
+                </div>
+                <label for="department">Отдел</label>
+                <div id="department-data-load">
+                    <select class="form-select mb-3 field" name="department" id="department">
+                        <option></option>
+                    </select>
+                </div>
+            </form>
+            <div class="modal-text-right">
+                <a class="icon-hover-red icon-font-size-25px icon-margin-right-1rem saveBtn" id="save"><i
+                        class="fa-solid fa-circle-check"></i></a>
+                <a class="icon-hover-red icon-font-size-25px icon-margin-right-1rem" id="closeBtn"><i
+                        class="fa-solid fa-xmark"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card flex-fill">
+    <div id="userModalUpdate" class="modal">
+        <div class="modal-content modal-user">
+            <div id="modal-update-ajax-load">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        let modal = document.getElementById('newUserModal');
+        let btn = document.getElementById("createUserModal");
+        let btnClose = document.getElementById("closeBtn");
+
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        btnClose.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        userRoomsSelectLoad();
+        userDepartmentsSelectLoad();
+        updateModalUser();
+        createNewUser();
+        deleteUser();
+    });
+
+</script>

@@ -1,0 +1,106 @@
+<div class="col-6 col-lg-6 col-xxl-6 d-flex">
+    <div class="card flex-fill">
+        <div class="card-header">
+
+            <h5 class="card-title mb-0">Список отделов</h5>
+            <br>
+            <a class="icon-hover-red icon-font-size-25px" id="createModal"><i class="fa-solid fa-circle-plus"></i></a>
+        </div>
+        <table class="table table-hover my-0 padding-5-5">
+            <thead>
+            <tr>
+                <th class="col-2">№</th>
+                <th class="col-4 th-employee">Группа пользователей</th>
+                <th class="col-2 th-employee"> </th>
+                <th class="col-2 th-employee"> </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% set count = 1 %}
+            {% for group in groups %}
+            <tr>
+                <td class="colum-left">{{count}}</td>
+                <td class="colum-center">{{group.name}}</td>
+                <td class="colum-center"><a data-id={{group.id}} data-name="{{group.name}}" class="icon-hover-red updateGroup" id="updateBtn"><i class="fa-solid fa-pen"></i></a></td>
+                <td class="colum-center"><a data-id={{group.id}} class="icon-hover-red deleteGroup"><i class="fa-solid fa-trash"></i></a></td>
+            </tr>
+            {% set count = count + 1 %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="card flex-fill">
+    <div id="groupModel" class="modal">
+        <div class="modal-content modal-department">
+            <br>
+            <h5>Новая группа пользователей</h5>
+            <input type="text" class="form-control mb-3 groupItemName" name="groupItemName" id="groupItemName">
+            <div class="modal-text-right">
+                <a class="icon-hover-red icon-font-size-25px icon-margin-right-1rem saveBtn" id="save"><i class="fa-solid fa-circle-check"></i></a>
+                <a class="icon-hover-red icon-font-size-25px icon-margin-right-1rem" id="closeBtn"><i class="fa-solid fa-xmark"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card flex-fill">
+    <div id="groupModelUpdate" class="modal">
+        <div class="modal-content modal-department">
+            <br>
+            <h5>Изменить отдел</h5>
+            <input type="text" class="form-control mb-3 groupNameEdit" name="groupNameEdit" id="groupNameEdit">
+            <input type="hidden" class="groupIdEdit" name="groupIdEdit" id="groupIdEdit">
+            <div class="modal-text-right">
+                <a class="icon-hover-red icon-font-size-25px icon-margin-right-1rem updateBtn" id="update"><i class="fa-solid fa-circle-check"></i></a>
+                <a class="icon-hover-red icon-font-size-25px icon-margin-right-1rem" id="closeBtn2"><i class="fa-solid fa-xmark"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        let modal = document.getElementById('groupModel');
+        let modalUpdate = document.getElementById('groupModelUpdate');
+
+        let btn = document.getElementById("createModal");
+
+        let closeBtn = document.getElementById("closeBtn");
+        let closeBtn2 = document.getElementById("closeBtn2");
+
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        $(".updateGroup").bind("click", function (){
+            console.log($(this).attr("data-name"));
+            $("#groupNameEdit").val($(this).attr("data-name"));
+            $("#groupIdEdit").val($(this).attr("data-id"));
+            modalUpdate.style.display = "block";
+        });
+
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+        closeBtn2.onclick = function() {
+            modalUpdate.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+            if (event.target == modalUpdate) {
+                modalUpdate.style.display = "none";
+            }
+        }
+
+        createBtn1();
+        updateBtn1();
+        deleteBtn1();
+    });
+
+</script>

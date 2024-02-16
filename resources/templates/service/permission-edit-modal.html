@@ -1,0 +1,51 @@
+<form id="editPermission">
+  <div class="row">
+    <div class="col-lg-6">
+      <br>
+      <label for="objectName">Объект</label>
+      <br>
+      <input type="text" name="objectName" id="objectName" value="{{permission[0].object_name}}" disabled>
+      <br>
+
+      <label for="stage">Стадия</label>
+      <br>
+      {% if permission[0].stage == 1 %}
+      <input type="text" name="stage" id="stage" value="П" disabled>
+      {% else %}
+      <input type="text" name="stage" id="stage" value="Р" disabled>
+      {% endif %}
+      <br>
+
+      <label for="section">Раздел</label>
+      <br>
+      <input type="text" name="section" id="section" value="{{permission[0].section_name}}" disabled>
+      <br>
+
+      <label for="permNumber">Номер изменения</label>
+      <br>
+      <input type="text" class="form-control mb-3 permNumber" value="{{permission[0].change_number}}" name="permNumber" id="permNumber" disabled>
+      <br>
+
+    </div>
+    <div class="col-lg-6">
+    </div>
+  </div>
+  <input type="hidden" name="year_id" id="year_id" value="{{year_id}}">
+  <input type="hidden" name="permission_number_id" id="permission_number_id" value="{{permission[0].permission_id}}">
+  <input type="hidden" name="permission_entity_id" id="permission_entity_id" value="{{permission_entity_id}}">
+</form>
+<div class="modal-text-right">
+  <a class="editPermissionSave" id="editPermissionSave">Аннулировать разрешение</a>
+  <a class="" id="closeEditModalPermission">Отмена</a>
+</div>
+
+<script>
+  $(document).ready(function () {
+      let modal = document.getElementById('permissionEditModal');
+      let close = document.getElementById("closeEditModalPermission");
+      close.onclick = function() {
+        modal.style.display = "none";
+      }
+      editPermissionSave();
+  });
+</script>

@@ -1,0 +1,18 @@
+<div class="btn-group-options">
+    <button
+            class="btn btn-primary btn-lg ajaxServiceLoad"
+            data-target="#ajaxService"
+            data-url="/services/permissions-to-changes">Разрешения</button>
+    <button
+            class="btn btn-primary btn-lg ajaxServiceLoad"
+            data-target="#ajaxService"
+            data-url="/services/mail-to-change">Письма</button>
+</div>
+
+<div id="ajaxService"></div>
+
+<script>
+    $(document).ready(function () {
+        serviceBtns();
+    });
+</script>

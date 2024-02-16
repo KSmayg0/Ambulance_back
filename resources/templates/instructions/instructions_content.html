@@ -1,0 +1,36 @@
+{% for item in content %}
+<div class="set">
+    <a class="help-font-size-16" href="#">
+        {{item.name}}
+        <span class="plus"><i class="icon"></i></span>
+    </a>
+    <div class="contentAcc help-font-size-14">
+        <p> {{ item.content|raw }} </p>
+    </div>
+</div>
+{% endfor %}
+
+
+<!--    Gallery-Import-->
+<script src="/resources/js/lightgallery/dist/lightgallery.umd.js"></script>
+<script src="/resources/js/lightgallery/dist/plugins/thumbnail/lg-thumbnail.umd.js"></script>
+<script src="/resources/js/lightgallery/dist/plugins/zoom/lg-zoom.umd.js"></script>
+<script src="/resources/js/lightgallery/dist/plugins/share/lg-share.umd.js"></script>
+<script src="/resources/js/lightgallery/dist/plugins/hash/lg-hash.umd.js"></script>
+<!--    Gallery-Import-->
+
+
+<script>
+    $(document).ready(function () {
+        accordionItems();
+
+        lightGallery(document.getElementById("gallery-container"), {
+            speed: 500,
+            plugins: [lgZoom]
+        });
+        lightGallery(document.getElementById("gallery-container1"), {
+            speed: 500,
+            plugins: [lgZoom]
+        });
+    });
+</script>

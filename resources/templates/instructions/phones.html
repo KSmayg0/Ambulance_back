@@ -1,0 +1,88 @@
+<div class="col-6 col-lg-6 col-xxl-6 d-flex">
+    <div class="card flex-fill">
+        <div class="card-header">
+
+            <h5 class="card-title mb-0">Список сотрудников и телефонов</h5>
+        </div>
+        <table class="table table-hover my-0 padding-5-5">
+            <thead>
+            <tr>
+                <th class="col-2">№</th>
+                <th class="col-8 th-employee">Сотрудник</th>
+                <th class="col-2 th-telefone">Телефон</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for floor in phones %}
+            {% if floor.rooms is not empty %}
+            <tr>
+                <td colspan="4" class="bg-warning floor-table-colum">
+                    {{floor.name}}
+                    {% if edit == 1%}
+                    <a class="editFloor" data-id="{{floor.id}}"><i class="fa-solid fa-circle-plus"></i></a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% for room in floor.rooms %}
+            <tr>
+                <td colspan="4" class="bg-gray floor-table-colum">{{room.room_name}}
+                    {% for department in room.departments %}
+                    <b class="depart_check">{{department.name}}</b>
+                    {% endfor %}
+                    {% if edit == 1%}
+                    <a class="editRoom" data-id="{{room.room_id}}"><i class="fa-solid fa-pen"></i></a>
+                    <a class="deleteRoom" data-id="{{room.room_id}}"><i class="fa-solid fa-trash"></i></a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% set user_count = 1 %}
+            {% for user in room.users %}
+            <tr>
+                <td class="colum-left">{{user_count}}</td>
+                <td class="colum-center">{{user.name}} {{user.lastname}}</td>
+                {% if user_count == 1 %}
+                <td class="colum-right colum-rowspan" rowspan="{{room.users_count[0].users_count}}">
+                    <b>{{room.phone}}</b></td>
+                {% endif %}
+            </tr>
+            {% set user_count = user_count + 1 %}
+            {% endfor %}
+            {% endfor %}
+            {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="card flex-fill">
+    <div id="roomModal" class="modal">
+        <div class="modal-content modal-department">
+            <br>
+            <h5>Добавить новое помещение</h5>
+            <input type="text" class="form-control mb-3 roomName" name="roomName" id="roomName">
+            <div class="modal-text-right">
+                <a class="icon-hover-red icon-font-size-25px icon-margin-right-1rem roomSaveBtn" id="roomSave"><i class="fa-solid fa-circle-check"></i></a>
+                <a class="icon-hover-red icon-font-size-25px icon-margin-right-1rem" id="roomСloseBtn"><i class="fa-solid fa-xmark"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card flex-fill">
+    <div id="roomModalUpdate" class="modal">
+        <div class="modal-content modal-department">
+            <div id="modal-update-ajax-load">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        editFloorModalOpen();
+        editRoomModalOpen();
+        deleteRoomFromFloor();
+    });
+</script>

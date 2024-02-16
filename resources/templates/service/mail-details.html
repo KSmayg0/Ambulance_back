@@ -1,0 +1,129 @@
+<div class="row">
+  <div class="btn-group-options">
+    <button
+            class="btn btn-success btn-sm"
+            id="openMailModalBtn"
+    >Получить номер письма
+    </button>
+    <button
+            class="btn btn-primary btn-sm"
+            id="openSpecialMailModalBtn"
+    >Вставить письмо
+    </button>
+  </div>
+</div>
+<div class="row">
+  <div class="btn-group-options">
+    <input type="hidden" id="first_year_id" value="{{years[0].id}}">
+    {% for year in years %}
+    <button
+            class="btn btn-warning btn-sm loadMailContent"
+            data-target="#mail_content"
+            data-mail_id = "{{year.mail_id}}"
+            data-year_id="{{year.id}}"
+    >{{year.year}}
+    </button>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="bl-scroll">
+  <div class="container_full-size">
+    <div class="col-12 col-lg-12 col-xxl-12 d-flex">
+      <div class="card flex-fill">
+        <div id="mail_content">
+          <!--                load permission content here-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="mailModal" class="modal">
+  <div class="modal-content">
+    <form id="createMail">
+      <div class="row">
+        <div class="col-lg-6">
+          <span class="error"></span>
+
+          <label for="newMailDescription" id="">Описание</label>
+          <input type="text" name="newMailDescription" class="newMailDescription" id="newMailDescription" value="">
+
+        </div>
+        <div class="col-lg-6">
+        </div>
+      </div>
+      <input type="hidden" name="year_id" id="year_id" value="{{years[0].id}}">
+      <input type="hidden" name="mail_entity_id" id="mail_entity_id" value="{{mailEntity}}">
+    </form>
+    <div class="modal-text-right">
+      <a class="icon-hover-red icon-font-size-25px icon-margin-right-1rem getMail" id="getMail"><i class="fa-solid fa-circle-check"></i></a>
+      <a class="icon-hover-red icon-font-size-25px icon-margin-right-1rem" id="closeMailModalBtn"><i class="fa-solid fa-xmark"></i></a>
+    </div>
+  </div>
+</div>
+
+<div id="mailSpecialModal" class="modal">
+  <div class="modal-content">
+    <form id="createSpecialMail">
+      <div class="row">
+        <div class="col-lg-6">
+          <span class="error" id="specialMailError"></span>
+
+          <label for="mailId">Вставить после</label>
+          <select class="form-select mb-3 field" name="mailId" id="mailId">
+            <option></option>
+            {% for mail in mails %}
+            <option value="{{mail.id}}" data-id="{{mail.id}}">{{mail.number_id}}</option>
+            {% endfor %}
+          </select>
+          <br>
+          <label for="specialMailDescription">Описание</label>
+          <input type="text" name="specialMailDescription" class="specialMailDescription" id="specialMailDescription" value="">
+
+        </div>
+        <div class="col-lg-6">
+        </div>
+      </div>
+      <input type="hidden" name="year_id" id="special_year_id" value="{{years[0].id}}">
+      <input type="hidden" name="mail_entity_id" id="special_mail_entity_id" value="{{mailEntity}}">
+    </form>
+    <div class="modal-text-right">
+      <a class="icon-hover-red icon-font-size-25px icon-margin-right-1rem special_getMail" id="special_getMail"><i class="fa-solid fa-circle-check"></i></a>
+      <a class="icon-hover-red icon-font-size-25px icon-margin-right-1rem" id="special_closeMailModalBtn"><i class="fa-solid fa-xmark"></i></a>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    onLoadMailContent(document.getElementById('first_year_id').value, document.getElementById('mail_entity_id').value);
+    let modal = document.getElementById('mailModal');
+    let modalSpecial = document.getElementById('mailSpecialModal');
+    // Переменная кнопки, открывающей модальное окно
+    let btn = document.getElementById("openMailModalBtn");
+    let btnSpecial = document.getElementById("openSpecialMailModalBtn");
+    let close = document.getElementById("closeMailModalBtn");
+    let closeSpecial = document.getElementById("special_closeMailModalBtn");
+    // Получение элемента <span>, который закрывает модальное окно
+    let span = document.getElementsByClassName("close")[0];
+    // Когда пользователь нажимает кнопку, открывается pop-up форма
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+    btnSpecial.onclick = function() {
+      modalSpecial.style.display = "block";
+    }
+    // Когда пользователь нажимает кнопку (x) <span>, закрывается окно формы
+    close.onclick = function() {
+      modal.style.display = "none";
+    }
+    closeSpecial.onclick = function() {
+      modalSpecial.style.display = "none";
+    }
+
+    loadMailContentOnClick();
+    getMail();
+    getSpecialMail();
+  });
+</script>

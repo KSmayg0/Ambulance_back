@@ -1,0 +1,107 @@
+<div class="col-6 col-lg-6 col-xxl-6 d-flex">
+    <div class="card flex-fill">
+        <div class="card-header">
+
+            <h5 class="card-title mb-0">Список отделов</h5>
+            <br>
+            <a class="icon-hover-red icon-font-size-25px" id="createModal"><i class="fa-solid fa-circle-plus"></i></a>
+        </div>
+        <table class="table table-hover my-0 padding-5-5">
+            <thead>
+            <tr>
+                <th class="col-2">№</th>
+                <th class="col-4 th-employee">Отдел</th>
+                <th class="col-2 th-employee"> </th>
+                <th class="col-2 th-employee"> </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% set count = 1 %}
+            {% for department in departments %}
+            <tr>
+                <td class="colum-left">{{count}}</td>
+                <td class="colum-center">{{department.name}}</td>
+                <td class="colum-center"><a data-id={{department.id}} data-name="{{department.name}}" class="icon-hover-red updateDepartment" id="updateBtn"><i class="fa-solid fa-pen"></i></a></td>
+                <td class="colum-center"><a data-id={{department.id}} class="icon-hover-red deleteDepartment"><i class="fa-solid fa-trash"></i></a></td>
+            </tr>
+            {% set count = count + 1 %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="card flex-fill">
+    <div id="departmentModal" class="modal">
+        <div class="modal-content modal-department">
+            <br>
+            <h5>Новый отдел</h5>
+            <input type="text" class="form-control mb-3 depName" name="depName" id="depName">
+            <div class="modal-text-right">
+                <a class="icon-hover-red icon-font-size-25px icon-margin-right-1rem saveBtn" id="save"><i class="fa-solid fa-circle-check"></i></a>
+                <a class="icon-hover-red icon-font-size-25px icon-margin-right-1rem" id="closeBtn"><i class="fa-solid fa-xmark"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card flex-fill">
+    <div id="departmentModalUpdate" class="modal">
+        <div class="modal-content modal-department">
+            <br>
+            <h5>Изменить отдел</h5>
+            <input type="text" class="form-control mb-3 depNameEdit" name="depNameEdit" id="depNameEdit">
+            <input type="hidden" class="depIdEdit" name="depIdEdit" id="depIdEdit">
+            <div class="modal-text-right">
+                <a class="icon-hover-red icon-font-size-25px icon-margin-right-1rem updateBtn" id="update"><i class="fa-solid fa-circle-check"></i></a>
+                <a class="icon-hover-red icon-font-size-25px icon-margin-right-1rem" id="closeBtn2"><i class="fa-solid fa-xmark"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+
+        let modal = document.getElementById('departmentModal');
+        let modalUpdate = document.getElementById('departmentModalUpdate');
+
+        let btn = document.getElementById("createModal");
+
+        let closeBtn = document.getElementById("closeBtn");
+        let closeBtn2 = document.getElementById("closeBtn2");
+
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        $(".updateDepartment").bind("click", function (){
+            console.log($(this).attr("data-name"));
+            $("#depNameEdit").val($(this).attr("data-name"));
+            $("#depIdEdit").val($(this).attr("data-id"));
+            modalUpdate.style.display = "block";
+        });
+
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+        closeBtn2.onclick = function() {
+            modalUpdate.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+            if (event.target == modalUpdate) {
+                modalUpdate.style.display = "none";
+            }
+        }
+
+        createBtn();
+        updateBtn();
+        deleteBtn();
+    });
+
+</script>

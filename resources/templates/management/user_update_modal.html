@@ -1,0 +1,71 @@
+<span class="error-update"></span>
+<br>
+<h5>Изменить пользователя</h5>
+<form id="updateUserForm">
+    <label for="loginUpdate">Логин</label>
+    <input type="text" class="form-control mb-3 depName field-update" value="{{user[0].login}}" name="loginUpdate" id="loginUpdate">
+    <label for="passwordUpdate">Пароль</label>
+    <input type="text" class="form-control mb-3 depName field-update" value="{{user[0].password}}" name="passwordUpdate" id="passwordUpdate">
+    <label for="nameUpdate">Имя</label>
+    <input type="text" class="form-control mb-3 depName field-update" value="{{user[0].name}}" name="nameUpdate" id="nameUpdate">
+    <label for="lastnameUpdate">Фамилия</label>
+    <input type="text" class="form-control mb-3 depName field-update" value="{{user[0].lastname}}" name="lastnameUpdate" id="lastnameUpdate">
+    <label for="phoneUpdate">Телефон</label>
+    <input type="text" class="form-control mb-3 depName field-update" value="{{user[0].phone}}" name="phoneUpdate" id="phoneUpdate">
+    <input type="hidden" id="floor_id_from_base" value="{{user[0].floor_id}}">
+    <input type="hidden" id="room_id_from_base" value="{{user[0].room_id}}">
+    <input type="hidden" id="department_id_from_base" value="{{user[0].department_id}}">
+    <input type="hidden" id="active_from_base" value="{{user[0].active}}">
+    <input type="hidden" name="user_id" id="user_id" value="{{user[0].user_id}}">
+    <label for="floorUpdate">Этаж</label>
+    <select class="form-select mb-3 field-update" name="floorUpdate" id="floorUpdate">
+        <option></option>
+        {% for floor in floors %}
+        <option value="{{floor.id}}" data-id="{{floor.id}}">{{floor.name}}</option>
+        {% endfor %}
+    </select>
+    <label for="roomUpdate">Блок</label>
+    <div id="roomUpdate-data-load">
+        <select class="form-select mb-3 field-update" name="roomUpdate" id="roomUpdate">
+            <option></option>
+        </select>
+    </div>
+    <label for="departmentUpdate">Отдел</label>
+    <div id="departmentUpdate-data-load">
+        <select class="form-select mb-3 field-update" name="departmentUpdate" id="departmentUpdate">
+            <option></option>
+        </select>
+    </div>
+    <label for="active_select">Активность</label>
+    <select class="form-select mb-3 field-update" name="active" id="active_select">
+        <option value="0">0</option>
+        <option value="1">1</option>
+    </select>
+</form>
+<div class="modal-text-right">
+    <a class="icon-hover-red icon-font-size-25px icon-margin-right-1rem updateBtn" id="update"><i class="fa-solid fa-circle-check"></i></a>
+    <a class="icon-hover-red icon-font-size-25px icon-margin-right-1rem" id="closeBtn2"><i class="fa-solid fa-xmark"></i></a>
+</div>
+
+<script>
+    $(document).ready(function () {
+        let btnCloseModalUpdate = document.getElementById("closeBtn2");
+        let userModalUpdate = document.getElementById("userModalUpdate");
+        let floor_id = document.getElementById('floor_id_from_base').value;
+        let room_id = document.getElementById('room_id_from_base').value;
+        let department_id = document.getElementById('department_id_from_base').value;
+        let active = document.getElementById('active_from_base').value;
+
+        btnCloseModalUpdate.onclick = function () {
+            userModalUpdate.style.display = "none";
+        }
+
+        $("#floorUpdate").val(floor_id);
+        $("#active_select").val(active);
+
+        userRoomsSelectLoadForUpdate(floor_id, room_id);
+        departmentSelectLoadForUpdate(department_id, room_id);
+
+        updateUser();
+    });
+</script>

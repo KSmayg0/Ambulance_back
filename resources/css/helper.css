@@ -1,0 +1,58 @@
+.icon-hover-red:hover {
+    color: red;
+}
+
+.icon-font-size-25px {
+    font-size: 25px;
+}
+
+.modal-department {
+    max-width: 400px;
+}
+
+.modal-user {
+    margin: 5% auto !important;
+    max-width: 400px;
+}
+
+.modal-object {
+    margin: 5% auto !important;
+    max-width: 500px;
+}
+.modal-object-task-create {
+    margin: 15% auto !important;
+    max-width: 500px;
+}
+.modal-object-edit {
+    margin: 5% auto !important;
+    max-width: 700px;
+}
+
+.modal-text-right {
+    text-align: right;
+}
+
+.icon-margin-right-1rem {
+    margin-right: 1rem;
+}
+
+.table-corrections {
+    font-size: 12px;
+    line-height: 1.2;
+}
+
+.table > :not(caption) > * > * {
+    padding: 0.5rem !important;
+}
+
+.help-font-size-12 {
+    font-size: 12px !important;
+}
+
+.help-font-size-14 {
+    font-size: 14px !important;
+}
+
+.help-font-size-16 {
+    font-size: 16px !important;
+}

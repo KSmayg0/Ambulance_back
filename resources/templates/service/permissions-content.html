@@ -1,0 +1,68 @@
+<table class="table table-hover my-0">
+  <thead>
+  <tr>
+    <th class="td-position_num position-colum-item">№ разр.</th>
+    <th class="position-colum-item">Дата</th>
+    <th class="d-xl-table-cell position-text-line ">Объекты</th>
+    <th class="position-colum-item position-text-line">Стадия</th>
+    <th class="position-colum-item position-text-line">Раздел</th>
+    <th class="position-colum-item position-text-line">Изм.</th>
+    <th class="position-colum-item position-text-line">Фамилия</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% for perm in permissions %}
+  <tr>
+    <td class="column-pp">
+      {% if user_role_id == 1 %}
+      <a class="editPermission" data-year_id="{{year_id}}" data-permission_entity_id="{{permission_entity_id}}" data-id="{{perm.id}}">{{perm.id}}/{{year}}</a>
+      {% else %}
+      {{perm.id}}/{{year}}
+      {% endif %}
+    </td>
+    <td class="data-width">{{ perm.date|date("m/d/Y") }}</td>
+    <td class="position-text-line">
+      {{perm.object_name}}
+      {% if perm.annul == 1 %}
+      - <span class="text-danger">Аннулировано</span>
+      {% endif %}
+    </td>
+    {% if perm.stage == 1 %}
+    <td class="position-text-line">П</td>
+    {% else %}
+    <td class="position-text-line">Р</td>
+    {% endif %}
+    <td class="position-text-line">{{perm.section_name}}</td>
+    <td class="position-text-line">{{perm.change_number}}</td>
+    <td class="position-text-line">{{perm.lastname}}</td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<div id="permissionEditModal" class="modal">
+  <div class="modal-content">
+    <div id="editPermissionContent">
+
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+
+    $(".editPermission").bind("click", function () {
+
+      let modal = document.getElementById('permissionEditModal');
+      let dataToSend = {};
+      dataToSend['permission_id'] = $(this).attr("data-id");
+      dataToSend['permission_entity_id'] = $(this).attr("data-permission_entity_id");
+      dataToSend['year_id'] = $(this).attr("data-year_id");
+
+      ajaxPostAsyncFalse('/services/perms/getPermById',"#editPermissionContent",dataToSend);
+
+      modal.style.display = "block";
+
+    });
+  });
+</script>

@@ -1,0 +1,34 @@
+<br>
+<h5>Блок</h5>
+<form id="updateUserForm">
+  <label>Отделы в Блоке</label><br>
+  {% for departmentInRoom in departmentsInRoom %}
+  <label>{{departmentInRoom.name}}</label>
+  <a class="deleteDepartmentFromRoom" data-id="{{departmentInRoom.id}}"><i class="fa-solid fa-trash"></i></a>
+  <br>
+  {% endfor %}
+  <br>
+  <label>Добавить отдел</label>
+  <div id="department-data-load">
+    {% include 'users_department_select.html' %}
+  </div>
+  <input type="hidden" id="room_id_structure" value="{{room_id}}">
+</form>
+<div class="modal-text-right">
+  <a class="icon-hover-red icon-font-size-25px icon-margin-right-1rem updateRoomInStructureBtn" id="update"><i class="fa-solid fa-circle-check"></i></a>
+  <a class="icon-hover-red icon-font-size-25px icon-margin-right-1rem" id="closeBtn2"><i class="fa-solid fa-xmark"></i></a>
+</div>
+
+<script>
+  $(document).ready(function () {
+    let btnCloseModalUpdate = document.getElementById("closeBtn2");
+    let roomModalUpdate = document.getElementById("roomModalUpdate");
+
+    btnCloseModalUpdate.onclick = function () {
+      roomModalUpdate.style.display = "none";
+    }
+
+    addDepartmentToRoom();
+    deleteDepartmentFromRoom();
+  });
+</script>

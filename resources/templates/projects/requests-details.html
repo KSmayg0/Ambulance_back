@@ -1,0 +1,142 @@
+<!--TODO: Не защищенный метод получения excel, так как его может получить любой пользователь по URL  -->
+{% if role == "Admin" %}
+<a class="btn btn-sm btn-primary loadExcelModal" id="loadExcelModalNonArchive" href="/requests/createExcelNonArhive">Скачать файл excel активные</a>
+<a class="btn btn-sm btn-primary loadExcelModal" id="loadExcelModalArchive" href="/requests/createExcelArhive">Скачать файл excel архивные</a>
+<a class="btn btn-sm btn-primary loadExcelModal" id="loadExcelModal" href="/requests/createExcel">Скачать файл excel все</a>
+{% endif %}
+<div class="container_full-size">
+  <div class="col-12 col-lg-12 col-xxl-12 d-flex">
+    <div class="card flex-fill">
+      <div class="card-header">
+        <h5 class="text-center card-title mb-0">Сводная таблица заявок</h5>
+      </div>
+      <table class="table table-hover my-0 table-corrections">
+        <thead>
+          <tr>
+            <th id="th1" class="td-position td-position_num">№</th>
+            <th id="th2" class="d-none d-sm-table-cell td-position">Описание</th>
+            <th id="th3" class="d-none d-sm-table-cell td-position">Пользователь</th>
+            <th id="th4" class="td-position d-xl-table-cell">Чат ID</th>
+            <th id="th5" class="d-none d-xl-table-cell td-position">Дата заявки</th>
+            <th id="th6" class="d-none d-xl-table-cell td-position">Статус</th>
+            <th id="th7" class="d-none d-xl-table-cell td-position">Приоритет</th>
+            <th id="th8" class="d-none d-xl-table-cell td-position">Срок выполнения</th>
+            <th id="th9" class="d-md-table-cell th-position">Сотрудник</th>
+            <th id="th10" class="d-md-table-cell th-position"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% set count = 1 %}
+          {% for request in requests %}
+          <tr>
+            <td class="column-pp">{{count}}</td>
+            {% if role == "Admin" or role == "User" %}
+              <td class="d-none d-sm-table-cell">
+                <a class="editRequest" data-id="{{request.request_id}}">{{request.request_description}}</a>
+              </td>
+            {% else %}
+              <td class="d-none d-sm-table-cell">{{request.request_description}}</td>
+            {% endif %}
+
+            {% if request.user_name_surname is not empty %}
+              <td class="d-none d-sm-table-cell">{{request.user_name_surname}}</td>
+            {% else %}
+              <td class="d-none d-sm-table-cell"><span class="text-danger">Не назначен</span></td>
+            {% endif %}
+
+            {% if request.chat_id is not empty %}
+              <td class="d-none d-sm-table-cell">{{request.chat_id}}</td>
+            {% else %}
+              <td class="d-none d-sm-table-cell"><span class="text-danger">Не назначен</span></td>
+            {% endif %}
+
+            {% if request.date_create is not empty %}
+              <td class="d-none d-md-table-cell">{{request.date_create}}</td>
+            {% else %}
+              <td class="d-none d-md-table-cell">{{request.date_create}}</td>
+            {% endif %}
+
+            {% if request.status_name is not empty %}
+              <td class="d-none d-sm-table-cell">{{request.status_name}}</td>
+            {% else %}
+              <td class="d-none d-sm-table-cell"><span class="text-danger">Не назначен</span></td>
+            {% endif %}
+
+            {% if request.priority_name is not empty %}
+              <td class="d-none d-sm-table-cell">{{request.priority_name}}</td>
+            {% else %}
+              <td class="d-none d-sm-table-cell"><span class="text-danger">Не назначен</span></td>
+            {% endif %}
+
+            {% if request.date_expired is not empty %}
+              <td class="d-none d-sm-table-cell">{{request.date_expired}}</td>
+            {% else %}
+              <td class="d-none d-sm-table-cell"><span class="text-danger">Не назначен</span></td>
+            {% endif %}
+
+            {% if request.worker_id is not empty %}
+              <td class="d-none d-sm-table-cell">{{request.worker_name_surname}}</td>
+              <td class="d-none d-sm-table-cell"></td>
+            {% else %}
+              <td class="d-none d-sm-table-cell"><span class="text-danger">Не назначен</span></td>
+              <td class="d-none d-sm-table-cell">
+                {% if role == "Admin" or role == "User" %}
+                  <!-- КНОПКА ВЗЯТЬ В РАБОТУ  -->
+                  <a class="btn btn-sm btn-primary takeRequestToWork" data-id="{{request.request_id}}">Взять</a>
+                {% endif %}
+              </td>
+            {% endif %}
+          </tr>
+          {% set count = count + 1 %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!--  МОДАЛЬНОЕ ОКНО  -->
+<div class="card flex-fill">
+    <div id="requestModal" class="modal">
+        <div class="modal-content modal-object-edit">
+            <br>
+            <h5>Данные об заявке</h5>
+            <div id="modal-update-ajax-load">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // removeRowspanItem(e);
+    // e.addListener(removeRowspanItem);
+
+    $(document).ready(function () {
+        // обработка события нажатия на кнопку редактировать запрос
+        $(".editRequest").bind("click", function () {
+
+            let modal = document.getElementById('requestModal');
+            // основная цель в файле заметки для вставки прорисовки формы
+            let target = "#modal-update-ajax-load";
+            // индекс запроса
+            let object_id = $(this).attr("data-id");
+
+            getRequestToEdit(object_id, target);
+            // промежуточное действие для добавления данных в форму
+            // добавление атрибута с параметром для отображения
+            modal.style.display = "block";
+
+            return false;
+        });
+        // обработка события нажатия на кнопку взять в работу
+        $(".takeRequestToWork").bind("click", function (){
+            // индекс запроса
+            let request_id = $(this).attr("data-id");
+            // TODO придумать защиту на случай когда два пользователя хотят взять одну заявку
+            getRequestToWork(request_id, getCookie('user_id'));
+
+            return false;
+        });
+
+    });
+</script>

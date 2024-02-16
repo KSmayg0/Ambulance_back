@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <title>GiproServices</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="GiproServices" />
+  <link rel="icon" type="image/png" href="/resources/images/icons/favicon.ico"/>
+  <link rel="stylesheet" type="text/css" href="/resources/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="/resources/loginstyle/util.css">
+  <link rel="stylesheet" type="text/css" href="/resources/loginstyle/main.css">
+  <link rel="stylesheet" type="text/css" href="/resources/loginstyle/helper.css">
+  <script src="/resources/js/jquery-3.6.0.min.js"></script>
+  <script src="/resources/loginstyle/tilt.jquery.min.js"></script>
+</head>
+<body>
+<div class="limiter">
+  <div class="container-login100" id="loginAjax">
+    <div class="wrap-login100" >
+      <div class="login100-pic js-tilt" data-tilt>
+        <img src="/resources/images/img-02.png" alt="IMG">
+      </div>
+      <form class="login100-form validate-form">
+					<span class="login100-form-title">
+						<br>
+						<br>
+						Выходим....
+					</span>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    setTimeout('logout()', 1000);
+  });
+
+  function logout(){
+    window.location = "/";
+  }
+
+</script>
+</body>
+<script src="/resources/js/jquery-3.6.0.min.js"></script>
+<script src="/resources/loginstyle/tilt.jquery.min.js"></script>
+</html>

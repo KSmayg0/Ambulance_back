@@ -1,0 +1,10 @@
+{
+    "require": {
+        "twig/twig": "^3.0",
+        "phpoffice/phpspreadsheet": "^1.25",
+      "ext-pdo": "*",
+      "ext-curl": "*",
+        "twig/intl-extra": "^3.6",
+        "monolog/monolog": "^3.4"
+    }
+}

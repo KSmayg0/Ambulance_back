@@ -1,0 +1,37 @@
+{% include 'head.html' %}
+
+<body>
+    <div class="wrapper">
+
+        {% include 'sidebar.html' %}
+
+        <div class="main">
+            {% include 'navbar.html' %}
+            <main class="content">
+                <div class="container-fluid p-0">
+                    <div id="ajax-content-load">
+                        <h1 class="h3 mb-3"><strong>Главная страница</strong></h1>
+<!--                        ajax load content here-->
+                    </div>
+                </div>
+            </main>
+            {% include 'footer.html' %}
+        </div>
+    </div>
+
+    <script src="/resources/js/app.js"></script>
+    <script src="/resources/js/helpers.js"></script>
+    <script src="/resources/js/core.js"></script>
+    <script src="/resources/js/projects.js"></script>
+    <script src="/resources/js/services.js"></script>
+    <script src="/resources/js/managementDepart.js"></script>
+    <script src="/resources/js/managementGroup.js"></script>
+    <script>
+        $(document).ready(function () {
+            sideMenu();
+            navBarBtns();
+        });
+    </script>
+</body>
+
+</html>

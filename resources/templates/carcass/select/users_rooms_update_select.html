@@ -1,0 +1,21 @@
+<select class="form-select mb-3" name="roomUpdate" id="roomUpdate">
+    {% for room in rooms %}
+    <option value="{{room.id}}" data-id="{{room.id}}">{{room.name}}</option>
+    {% endfor %}
+  </select>
+<input type="hidden" id="room_id_base" value="{{rooms[0].id}}">
+<input type="hidden" id="floor_change" value="{{floor_change}}">
+<script>
+  $(document).ready(function () {
+      // let room_id_base = document.getElementById("room_id_base").value;
+      // console.log(room_id_base);
+      let floor_change = document.getElementById("floor_change").value;
+      if (floor_change == 1) {
+          let floor_select_id_indep = document.getElementById("room_id_base").value;;
+          console.log(floor_select_id_indep);
+          departmentSelectLoadForUpdateFloorUpdate(floor_select_id_indep);
+      } else {
+          departmentSelectLoadForUpdateChangeRoom();
+      }
+  });
+</script>

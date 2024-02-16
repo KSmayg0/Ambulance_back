@@ -1,0 +1,99 @@
+<div class="row">
+    <div class="btn-group-options">
+        <button
+                class="btn btn-success btn-sm"
+                id="myBtn"
+                >Получить разрешение
+        </button>
+    </div>
+</div>
+<div class="row">
+    <div class="btn-group-options">
+        <input type="hidden" id="first_year_id" value="{{years[0].id}}">
+        {% for year in years %}
+        <button
+                class="btn btn-warning btn-sm loadPermissionContent"
+                data-target="#permissions_content"
+                data-permission_id = "{{year.permission_id}}"
+                data-year_id="{{year.id}}"
+                >{{year.year}}
+        </button>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="bl-scroll">
+    <div class="container_full-size">
+        <div class="col-12 col-lg-12 col-xxl-12 d-flex">
+            <div class="card flex-fill">
+                <div id="permissions_content">
+                    <!--                load permission content here-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="permissionModal" class="modal">
+        <div class="modal-content">
+            <form id="createPermission">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <span class="error"></span>
+
+                        <label for="objectSelect" id="objectSelectLabel">Объект</label>
+                        <select class="form-select mb-3 field" name="objectSelect" id="objectSelect">
+                            <option></option>
+                            {% for object in objects %}
+                            <option value="{{object.object_id}}" data-id="{{object.object_id}}">{{object.object_name}}</option>
+                            {% endfor %}
+                        </select>
+
+                        <label for="stageSelect" id="stageSelectLabel">Стадия</label>
+                        <select class="form-select mb-3 field" name="stageSelect" id="stageSelect">
+                            <option></option>
+                            <option value="1" >П</option>
+                            <option value="2" >Р</option>
+                        </select>
+
+                        <label for="section" id="sectionLabel">Раздел</label>
+                        <input type="text" class="form-control mb-3 field" value="" name="section" id="section">
+
+                        <label for="permNumber" id="permNumberLabel">Номер изменения</label>
+                        <input type="text" class="form-control mb-3 field" value="" name="permNumber" id="permNumber">
+                    </div>
+                    <div class="col-lg-6">
+                    </div>
+                </div>
+                <input type="hidden" name="year_id" id="year_id" value="{{years[0].id}}">
+                <input type="hidden" name="permission_entity_id" id="permission_entity_id" value="{{permEntity}}">
+            </form>
+            <div class="modal-text-right">
+                <a class="icon-hover-red icon-font-size-25px icon-margin-right-1rem getPermission" id="getPermission"><i class="fa-solid fa-circle-check"></i></a>
+                <a class="icon-hover-red icon-font-size-25px icon-margin-right-1rem" id="closeBtn"><i class="fa-solid fa-xmark"></i></a>
+            </div>
+        </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        onLoadPermissionContent(document.getElementById('first_year_id').value, document.getElementById('permission_entity_id').value);
+        let modal = document.getElementById('permissionModal');
+        // Переменная кнопки, открывающей модальное окно
+        let btn = document.getElementById("myBtn");
+        let close = document.getElementById("closeBtn");
+        // Получение элемента <span>, который закрывает модальное окно
+        let span = document.getElementsByClassName("close")[0];
+        // Когда пользователь нажимает кнопку, открывается pop-up форма
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+        // Когда пользователь нажимает кнопку (x) <span>, закрывается окно формы
+        close.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        loadPermissionContentOnClick();
+        getPermission();
+    });
+</script>

@@ -1,0 +1,12 @@
+{% if userData is empty %}
+
+<p>У вас нет доступа к Trello. Отправьте запрос системным администраторам.</p>
+<br>
+<span class="btn btn-sm btn-warning">Отправить запрос</span>
+
+{% else %}
+
+<p>Логин — <b>{{userData[0].trello_login}}</b></p>
+<p>Пароль — <b>{{userData[0].trello_password}}</b></p>
+
+{% endif %}

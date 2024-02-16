@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <title>GiproServices</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="GiproServices" />
+  <link rel="icon" type="image/png" href="/resources/images/icons/favicon.ico"/>
+  <link rel="stylesheet" type="text/css" href="/resources/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="/resources/loginstyle/util.css">
+  <link rel="stylesheet" type="text/css" href="/resources/loginstyle/main.css">
+  <link rel="stylesheet" type="text/css" href="/resources/loginstyle/helper.css">
+    <script src="/resources/js/jquery-3.6.0.min.js"></script>
+    <script src="/resources/loginstyle/tilt.jquery.min.js"></script>
+</head>
+<body>
+<div class="limiter">
+  <div class="container-login100" id="loginAjax">
+    <div class="wrap-login100" >
+      <div class="login100-pic js-tilt" data-tilt>
+        <img src="/resources/images/img-02.png" alt="IMG">
+      </div>
+      <form class="login100-form validate-form">
+					<span class="login100-form-title">
+						<br>
+						<br>
+						Пожалуйста авторизируйтесь.
+					</span>
+          {% if error == 1%}
+          <span class="login100-form-title">
+						<br>
+						<br>
+						Неверный логин!
+					</span>
+          {% endif %}
+          {% if error == 2%}
+          <span class="login100-form-title">
+						<br>
+						<br>
+						Неверный пароль!
+					</span>
+          {% endif %}
+
+        <div class="wrap-input100 validate-input">
+          <input class="input100" type="text" id="login" name="login" placeholder="Логин">
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+							<i class="fa fa-user" aria-hidden="true"></i>
+						</span>
+        </div>
+        <div class="wrap-input100 validate-input">
+          <input class="input100" type="password" id="password" name="pass" placeholder="Пароль">
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
+        </div>
+        <div class="container-login100-form-btn">
+                <span class="login100-form-btn ajaxLogin"
+                      data-url="/"
+                      data-target="#loginAjax">Вход
+                </span>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        login();
+    });
+
+    function login(){
+        $(".ajaxLogin").unbind("click");
+        $(".ajaxLogin").bind("click", function(){
+            let login = document.getElementById("login").value;
+            let password = document.getElementById("password").value;
+            $target = $(this).attr("data-target");
+            console.log(login);
+            console.log(password);
+            $.ajax ({
+                type: "POST",
+                url: $(this).attr("data-url"),
+                data: {'login':login, 'password':password,},
+                dataType: "html",
+                beforeSend: function(data){
+                    $($target).html('<div class="create-animation">\n' +
+                        '    <div class="lds-ring-login">\n' +
+                        '        <div></div>\n' +
+                        '        <div></div>\n' +
+                        '        <div></div>\n' +
+                        '        <div></div>\n' +
+                        '    </div>\n' +
+                        '    <p>Авторизация...</p>\n' +
+                        '    <p></p>\n' +
+                        '</div>\n');
+                },
+                success: function(data){
+                     //$($target).html(data);
+                    window.location = "/";
+                }
+            });
+            return false;
+        });
+    }
+
+</script>
+</body>
+<script src="/resources/js/jquery-3.6.0.min.js"></script>
+<script src="/resources/loginstyle/tilt.jquery.min.js"></script>
+</html>

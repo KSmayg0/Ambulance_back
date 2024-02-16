@@ -1,0 +1,37 @@
+<form id="editMail">
+  <div class="row">
+    <div class="col-lg-6">
+      <br>
+      <label for="mailNumber">Номер письма</label>
+      <br>
+      <input type="text" class="form-control mb-3 mailNumber" value="{{mail[0].number_id}}" name="mailNumber" id="mailNumber" disabled>
+      <br>
+
+      <label for="objectName">Описание</label>
+      <br>
+      <input type="text" name="objectName" id="objectName" value="{{mail[0].description}}" disabled>
+      <br>
+
+    </div>
+    <div class="col-lg-6">
+    </div>
+  </div>
+  <input type="hidden" name="year_id" id="year_id" value="{{year_id}}">
+  <input type="hidden" name="mail_number_id" id="mail_number_id" value="{{mail[0].mail_id}}">
+  <input type="hidden" name="mail_entity_id" id="mail_entity_id" value="{{mail_entity_id}}">
+</form>
+<div class="modal-text-right">
+  <a class="editMailSave" id="editMailSave">Аннулировать номер письма</a>
+  <a class="" id="closeEditModalMail">Отмена</a>
+</div>
+
+<script>
+  $(document).ready(function () {
+    let modal = document.getElementById('mailEditModal');
+    let close = document.getElementById("closeEditModalMail");
+    close.onclick = function() {
+      modal.style.display = "none";
+    }
+    editMailSave();
+  });
+</script>

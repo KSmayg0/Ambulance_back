@@ -1,0 +1,29 @@
+{% if userData is empty %}
+    <div id="vpnCon">
+        <p>У вас нет доступа к подключению VPN-Сети. Отправьте запрос системным администраторам.</p>
+        <br>
+        <span data-url="/sendVpn" data-target="#vpnCon" class="btn btn-sm btn-warning sendVpnCon">Отправить запрос</span>
+    </div>
+<script>
+    $(document).ready(function () {
+        sendVpnConn();
+    });
+</script>
+
+{% else %}
+
+<h4>Данные для создания подключения</h4>
+<p>Адрес сервера — <b>193.27.41.151</b></p>
+<p>Логин — <b>{{userData[0].vpn_login}}</b></p>
+<p>Пароль — <b>{{userData[0].vpn_password}}</b></p>
+<p>Ключ — <b>{{userData[0].vpn_key}}</b></p>
+
+<p>Логин и пароль от Архива — <b>{{userData[0].nas_login}}</b></p>
+<p>Логин и пароль от Обмена — <b>{{userData[0].nas_password}}</b></p>
+
+<p>Путь для подключения Архива (Диск Z)</p>
+<p><b>\\nas\Архив</b></p>
+<p>Путь для подключения Обмена (Диск Y)</p>
+<p><b>\\nasobmen\Обмен</b></p>
+
+{% endif %}

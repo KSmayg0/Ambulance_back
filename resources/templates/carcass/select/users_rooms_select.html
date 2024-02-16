@@ -1,0 +1,12 @@
+<select class="form-select mb-3" name="room" id="room">
+  {% for room in rooms %}
+  <option value="{{room.id}}" data-id="{{room.id}}">{{room.name}}</option>
+  {% endfor %}
+</select>
+
+<script>
+  $(document).ready(function () {
+    userDepartmentsSelectLoadOnStartUp();
+    userDepartmentsSelectLoad();
+  });
+</script>
