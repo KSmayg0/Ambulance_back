@@ -173,6 +173,7 @@ class ApiRequestsController extends ControllerApi
 *
 * ЗАПРОСЫ НА ИЗМЕНЕНИЕ ИНФОРМАЦИИ В БАЗЕ
 */
+    #Изменить данные о пользователе администратором
     public function changeUser(): void {
       try {
           $json = file_get_contents('php://input');
@@ -187,6 +188,22 @@ class ApiRequestsController extends ControllerApi
           $this->projectView->apiSender($arrayd);
       } catch (\Exception $e) {
           $this->getLogger()->error($e->getMessage());
+      }
+    }
+    /*
+    *
+    * ЗАПРОСЫ НА УДАЛЕНИЕ ИНФОРМАЦИИ ИЗ БАЗЫ
+    */
+    #Удалить данные о пользователе администратором
+    public function deleteUser(): void {
+      try {
+
+        $json = file_get_contents('php://input');
+
+        $data = json_decode($json,true);
+        $arrayd = $this->requestsModel->deleteUserApi($data);
+      } catch (\Exception $e) {
+        $this->getLogger()->error($e->getMessage());
       }
     }
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

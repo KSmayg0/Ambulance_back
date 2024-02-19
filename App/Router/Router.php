@@ -87,6 +87,7 @@ class Router {
          Запросы на удаление информации
         */
         ### Удалить пользователя
+        self::addRoute('/api/deleteuser', 'ApiRequestsController@deleteUser');
         ### Удалить машину
         ### Удалить бригаду
         /*

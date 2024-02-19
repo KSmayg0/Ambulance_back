@@ -172,7 +172,6 @@ class RequestsModel extends Model
         return $this->createRequestArray($query);
 
     }
-    // КОНЕЦ ФУНКЦИЙ
 /*
 *
 * ЗАПРОСЫ НА ИЗМЕНЕНИЕ ИНФОРМАЦИИ
@@ -205,6 +204,28 @@ class RequestsModel extends Model
           echo $e->getMessage();
       }
     }
+    /*
+    *
+    * ЗАПРОСЫ НА УДАЛЕНИЕ ИНФОРМАЦИИ
+    */
+    public function deleteUserApi($user) {
+      $db = $this->getDatabase()->getConnection();
+      try{
+        $sql = "DELETE FROM `Employee` WHERE id=:id ;";
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':id', $user['id'], PDO::PARAM_STR_CHAR);
+        $stmt->execute();
+
+        $db->beginTransaction();
+
+        $db->commit();
+
+      } catch(PDOException $e) {
+        $db->rollBack();
+        echo $e->getMessage();
+      }
+    }
+    // КОНЕЦ ФУНКЦИЙ
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     #Отобразить все заявки из бд, которые находятся все архива
     public function getAllRequestsForPivotTable(): bool|array|null
